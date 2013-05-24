@@ -1,12 +1,21 @@
 # User specific & automatically generated files #
 #################################################
-/app/Config/database.php
+#/app/Config/database.php
+#/app/tmp
+#/lib/Cake/Console/Templates/skel/tmp/
+#/plugins
+#/vendors
+#/build
+#/dist
+#/tags
+/app/Config
 /app/tmp
 /lib/Cake/Console/Templates/skel/tmp/
 /plugins
 /vendors
 /build
 /dist
+.DS_Store
 /tags
 
 # OS generated files #
