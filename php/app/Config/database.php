@@ -54,17 +54,16 @@
  * For MySQL to connect via socket specify the `unix_socket` parameter instead of `host` and `port`
  */
 class DATABASE_CONFIG {
-        public $default = array(
-                'datasource' => 'Database/Mysql',
-                'persistent' => false,
-                'host'       => '',
-                'port'       => '',
-                'login'      => '',
-                'password'   => '',
-                'database'   => '',
-                'prefix'     => '',
-                //'encoding' => 'utf8',
-        );
+    public $default = array(
+        'datasource' => 'Database/Mysql',
+        'persistent' => false,
+        'host' => '127.0.0.1',
+        'login' => 'root',
+        'password' => 'root',
+        'database' => 'ffs',
+        'prefix' => '',
+        'encoding' => 'utf8',
+    );
 
         public $test = array(
                 'datasource' => 'Database/Mysql',
