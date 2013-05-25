@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: May 24, 2013 at 04:07 PM
+-- Generation Time: May 25, 2013 at 10:25 PM
 -- Server version: 5.5.30
 -- PHP Version: 5.4.15
 
@@ -19,6 +19,26 @@ SET time_zone = "+00:00";
 --
 -- Database: `ffs`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tickets`
+--
+
+CREATE TABLE IF NOT EXISTS `tickets` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `title` varchar(255) NOT NULL,
+  `reporter` varchar(255) NOT NULL,
+  `owner` varchar(255) NOT NULL,
+  `keywords` varchar(255) NOT NULL,
+  `description` text NOT NULL,
+  `state` varchar(100) NOT NULL,
+  `serialized_data` text NOT NULL,
+  `created` datetime NOT NULL,
+  `modified` datetime NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -42,4 +62,3 @@ INSERT INTO `users` (`id`, `username`) VALUES
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-
