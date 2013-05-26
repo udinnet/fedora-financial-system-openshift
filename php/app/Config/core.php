@@ -72,7 +72,7 @@ $key_list = openshift_secure($_default_keys,'make_secure_key');
  * In production mode, flash messages redirect after a time interval.
  * In development mode, you need to click the flash message to continue.
  */
-	Configure::write('debug', 2);
+	Configure::write('debug', 0);
 
 /**
  * Configure the Error handler used to handle errors for your application. By default
@@ -240,12 +240,12 @@ $key_list = openshift_secure($_default_keys,'make_secure_key');
  * A random string used in security hashing methods.
  */
 	Configure::write('Security.salt', $key_list['Security.salt']);
-
+#Configure::write('Security.salt', 'DYhG93b0qyJfIxfs2guVoUubWwvniR2G0FgaC9mZ');
 /**
  * A random numeric string (digits only) used to encrypt/decrypt strings.
  */
 	Configure::write('Security.cipherSeed', $key_list['Security.cipherSeed']);
-
+#Configure::write('Security.cipherSeed', '76859309657453542496749683615');
 /**
  * Apply timestamps with the last modified time to static assets (js, css, images).
  * Will append a querystring parameter containing the time the file was modified. This is
