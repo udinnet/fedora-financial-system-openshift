@@ -9,9 +9,9 @@
 			<th><?php echo $this->Paginator->sort('keywords'); ?></th>
 			<th><?php echo $this->Paginator->sort('description'); ?></th>
 			<th><?php echo $this->Paginator->sort('state'); ?></th>
-			<th><?php echo $this->Paginator->sort('serialized_data'); ?></th>
-			<th><?php echo $this->Paginator->sort('created'); ?></th>
-			<th><?php echo $this->Paginator->sort('modified'); ?></th>
+			<!--<th><?php echo $this->Paginator->sort('serialized_data'); ?>-->
+			<!--<th><?php echo $this->Paginator->sort('created'); ?></th>-->
+			<!--<th><?php echo $this->Paginator->sort('modified'); ?></th>-->
 			<th class="actions"><?php echo __('Actions'); ?></th>
 	</tr>
 	<?php foreach ($tickets as $ticket): ?>
@@ -25,9 +25,9 @@
 		<td><?php echo h($ticket['Ticket']['keywords']); ?>&nbsp;</td>
 		<td><?php echo h($ticket['Ticket']['description']); ?>&nbsp;</td>
 		<td><?php echo h($ticket['Ticket']['state']); ?>&nbsp;</td>
-		<td><?php echo h($ticket['Ticket']['serialized_data']); ?>&nbsp;</td>
-		<td><?php echo h($ticket['Ticket']['created']); ?>&nbsp;</td>
-		<td><?php echo h($ticket['Ticket']['modified']); ?>&nbsp;</td>
+		<!--<td><?php echo h($ticket['Ticket']['serialized_data']); ?>&nbsp;</td>-->
+		<!--<td><?php echo h($ticket['Ticket']['created']); ?>&nbsp;</td>-->
+		<!--<td><?php echo h($ticket['Ticket']['modified']); ?>&nbsp;</td>-->
 		<td class="actions">
 			<?php echo $this->Html->link(__('View'), array('action' => 'view', $ticket['Ticket']['id'])); ?>
 			<?php echo $this->Html->link(__('Edit'), array('action' => 'edit', $ticket['Ticket']['id'])); ?>
