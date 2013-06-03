@@ -6,12 +6,13 @@ class FASAuthenticate extends BaseAuthenticate {
     public function checkUser($fas_user) {
         App::uses('User','Model');
         $User = new User();
-        $user = $User->find("first",array("conditions"=>array("username" => $fas_user)));
+        $user = $User->find("first",array("conditions"=>array("username" => $fas_user['person']['username'])));
 
         if(!$user) {
             $user = array(
                 "User" => array(
-                    "username" => $fas_user,
+                    "username" => $fas_user['person']['username'],
+                    "email" => $fas_user['person']['email'],
                 )
             );
             $User->create();
@@ -48,7 +49,7 @@ class FASAuthenticate extends BaseAuthenticate {
             $fasuserdata = $this->getFasInfo($request);
 
             if (isset($fasuserdata["success"]) && $fasuserdata['person']['status'] == 'active') {
-                $user = $this->checkUser($fasuserdata['person']['username']);
+                $user = $this->checkUser($fasuserdata);
                 //echo debug($user,true,true);
                 return $user;
             }
