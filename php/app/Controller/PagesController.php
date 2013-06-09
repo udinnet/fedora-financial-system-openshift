@@ -35,8 +35,10 @@ class PagesController extends AppController {
  * Controller name
  *
  * @var string
+ *
  */
 	public $name = 'Pages';
+    public $theme = 'Bootstrap';
 
 /**
  * This controller does not use a model
