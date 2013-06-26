@@ -177,7 +177,7 @@ DROP TABLE IF EXISTS `ffs`.`transactions` ;
 
 CREATE  TABLE IF NOT EXISTS `ffs`.`transactions` (
   `id` INT(30) NOT NULL AUTO_INCREMENT ,
-  `amount` DECIMAL(15,2) NOT NULL ,
+  `amount` DECIMAL(15,2) NOT NULL DEFAULT '0.00' ,
   `type` CHAR(1) NOT NULL ,
   `time` DATETIME NOT NULL ,
   `account_id` INT(11) NOT NULL ,
@@ -196,6 +196,7 @@ CREATE  TABLE IF NOT EXISTS `ffs`.`tickets_ticket_fields` (
   `id` INT(20) NOT NULL ,
   `ticket_id` INT(20) NOT NULL ,
   `ticket_field_id` INT(11) NOT NULL ,
+  `amount` DECIMAL(15,2) NOT NULL DEFAULT '0.00' ,
   PRIMARY KEY (`id`) )
 ENGINE = InnoDB;
 
