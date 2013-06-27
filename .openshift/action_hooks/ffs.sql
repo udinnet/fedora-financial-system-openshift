@@ -1,224 +1,272 @@
-SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
-SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
-SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
+-- phpMyAdmin SQL Dump
+-- version 4.0.4
+-- http://www.phpmyadmin.net
+--
+-- Host: localhost
+-- Generation Time: Jun 27, 2013 at 06:32 PM
+-- Server version: 5.5.31
+-- PHP Version: 5.4.16
 
-DROP SCHEMA IF EXISTS `ffs` ;
-CREATE SCHEMA IF NOT EXISTS `ffs` DEFAULT CHARACTER SET utf8 ;
-USE `ffs` ;
-
--- -----------------------------------------------------
--- Table `ffs`.`acos`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `ffs`.`acos` ;
-
-CREATE  TABLE IF NOT EXISTS `ffs`.`acos` (
-  `id` INT(10) NOT NULL AUTO_INCREMENT ,
-  `parent_id` INT(10) NULL DEFAULT NULL ,
-  `model` VARCHAR(255) NULL DEFAULT NULL ,
-  `foreign_key` INT(10) NULL DEFAULT NULL ,
-  `alias` VARCHAR(255) NULL DEFAULT NULL ,
-  `lft` INT(10) NULL DEFAULT NULL ,
-  `rght` INT(10) NULL DEFAULT NULL ,
-  PRIMARY KEY (`id`) )
-ENGINE = InnoDB
-AUTO_INCREMENT = 35
-DEFAULT CHARACTER SET = utf8;
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET time_zone = "+00:00";
 
 
--- -----------------------------------------------------
--- Table `ffs`.`groups`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `ffs`.`groups` ;
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8 */;
 
-CREATE  TABLE IF NOT EXISTS `ffs`.`groups` (
-  `id` INT(11) NOT NULL AUTO_INCREMENT ,
-  `name` VARCHAR(100) NOT NULL ,
-  `created` DATETIME NULL DEFAULT NULL ,
-  `modified` DATETIME NULL DEFAULT NULL ,
-  PRIMARY KEY (`id`) )
-ENGINE = InnoDB
-AUTO_INCREMENT = 4
-DEFAULT CHARACTER SET = utf8;
+--
+-- Database: `ffs`
+--
+CREATE DATABASE IF NOT EXISTS `ffs` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
+USE `ffs`;
 
+-- --------------------------------------------------------
 
--- -----------------------------------------------------
--- Table `ffs`.`users`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `ffs`.`users` ;
+--
+-- Table structure for table `accounts`
+--
 
-CREATE  TABLE IF NOT EXISTS `ffs`.`users` (
-  `id` INT(11) NOT NULL AUTO_INCREMENT ,
-  `username` VARCHAR(255) NOT NULL ,
-  `email` VARCHAR(255) NOT NULL ,
-  `group_id` INT(11) NOT NULL ,
-  `created` DATETIME NULL DEFAULT NULL ,
-  `modified` DATETIME NULL DEFAULT NULL ,
-  PRIMARY KEY (`id`) ,
-  UNIQUE INDEX `username` (`username` ASC) )
-ENGINE = InnoDB
-AUTO_INCREMENT = 4
-DEFAULT CHARACTER SET = utf8;
+DROP TABLE IF EXISTS `accounts`;
+CREATE TABLE IF NOT EXISTS `accounts` (
+  `id` int(11) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `bring_fwd` tinyint(1) DEFAULT NULL,
+  `description` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+-- --------------------------------------------------------
 
--- -----------------------------------------------------
--- Table `ffs`.`aros`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `ffs`.`aros` ;
+--
+-- Table structure for table `acos`
+--
 
-CREATE  TABLE IF NOT EXISTS `ffs`.`aros` (
-  `id` INT(10) NOT NULL AUTO_INCREMENT ,
-  `parent_id` INT(10) NULL DEFAULT NULL ,
-  `model` VARCHAR(255) NULL DEFAULT NULL ,
-  `foreign_key` INT(10) NULL DEFAULT NULL ,
-  `alias` VARCHAR(255) NULL DEFAULT NULL ,
-  `lft` INT(10) NULL DEFAULT NULL ,
-  `rght` INT(10) NULL DEFAULT NULL ,
-  PRIMARY KEY (`id`) )
-ENGINE = InnoDB
-AUTO_INCREMENT = 7
-DEFAULT CHARACTER SET = utf8;
+DROP TABLE IF EXISTS `acos`;
+CREATE TABLE IF NOT EXISTS `acos` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `parent_id` int(10) DEFAULT NULL,
+  `model` varchar(255) DEFAULT NULL,
+  `foreign_key` int(10) DEFAULT NULL,
+  `alias` varchar(255) DEFAULT NULL,
+  `lft` int(10) DEFAULT NULL,
+  `rght` int(10) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
+-- --------------------------------------------------------
 
--- -----------------------------------------------------
--- Table `ffs`.`aros_acos`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `ffs`.`aros_acos` ;
+--
+-- Table structure for table `aros`
+--
 
-CREATE  TABLE IF NOT EXISTS `ffs`.`aros_acos` (
-  `id` INT(10) NOT NULL AUTO_INCREMENT ,
-  `aro_id` INT(10) NOT NULL ,
-  `aco_id` INT(10) NOT NULL ,
-  `_create` VARCHAR(2) NOT NULL DEFAULT '0' ,
-  `_read` VARCHAR(2) NOT NULL DEFAULT '0' ,
-  `_update` VARCHAR(2) NOT NULL DEFAULT '0' ,
-  `_delete` VARCHAR(2) NOT NULL DEFAULT '0' ,
-  PRIMARY KEY (`id`) ,
-  UNIQUE INDEX `ARO_ACO_KEY` (`aro_id` ASC, `aco_id` ASC) )
-ENGINE = InnoDB
-AUTO_INCREMENT = 10
-DEFAULT CHARACTER SET = utf8;
+DROP TABLE IF EXISTS `aros`;
+CREATE TABLE IF NOT EXISTS `aros` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `parent_id` int(10) DEFAULT NULL,
+  `model` varchar(255) DEFAULT NULL,
+  `foreign_key` int(10) DEFAULT NULL,
+  `alias` varchar(255) DEFAULT NULL,
+  `lft` int(10) DEFAULT NULL,
+  `rght` int(10) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
+-- --------------------------------------------------------
 
--- -----------------------------------------------------
--- Table `ffs`.`accounts`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `ffs`.`accounts` ;
+--
+-- Table structure for table `aros_acos`
+--
 
-CREATE  TABLE IF NOT EXISTS `ffs`.`accounts` (
-  `id` INT(11) NOT NULL ,
-  `name` VARCHAR(255) NOT NULL ,
-  `bring_fwd` TINYINT(1) NULL ,
-  `description` VARCHAR(255) NULL ,
-  PRIMARY KEY (`id`) )
-ENGINE = InnoDB;
+DROP TABLE IF EXISTS `aros_acos`;
+CREATE TABLE IF NOT EXISTS `aros_acos` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `aro_id` int(10) NOT NULL,
+  `aco_id` int(10) NOT NULL,
+  `_create` varchar(2) NOT NULL DEFAULT '0',
+  `_read` varchar(2) NOT NULL DEFAULT '0',
+  `_update` varchar(2) NOT NULL DEFAULT '0',
+  `_delete` varchar(2) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `ARO_ACO_KEY` (`aro_id`,`aco_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
+-- --------------------------------------------------------
 
--- -----------------------------------------------------
--- Table `ffs`.`states`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `ffs`.`states` ;
+--
+-- Table structure for table `field_amounts`
+--
 
-CREATE  TABLE IF NOT EXISTS `ffs`.`states` (
-  `id` INT(11) NOT NULL AUTO_INCREMENT ,
-  `name` VARCHAR(255) NOT NULL ,
-  `description` TEXT NOT NULL ,
-  PRIMARY KEY (`id`) )
-ENGINE = InnoDB;
+DROP TABLE IF EXISTS `field_amounts`;
+CREATE TABLE IF NOT EXISTS `field_amounts` (
+  `id` int(20) NOT NULL AUTO_INCREMENT,
+  `ticket_id` int(20) NOT NULL,
+  `ticket_field_id` int(11) NOT NULL,
+  `amount` decimal(15,2) NOT NULL DEFAULT '0.00',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=20 ;
 
+-- --------------------------------------------------------
 
--- -----------------------------------------------------
--- Table `ffs`.`region`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `ffs`.`region` ;
+--
+-- Table structure for table `groups`
+--
 
-CREATE  TABLE IF NOT EXISTS `ffs`.`region` (
-  `id` INT(11) NOT NULL AUTO_INCREMENT ,
-  `name` VARCHAR(255) NOT NULL ,
-  `short_name` VARCHAR(10) NOT NULL ,
-  PRIMARY KEY (`id`) )
-ENGINE = InnoDB;
+DROP TABLE IF EXISTS `groups`;
+CREATE TABLE IF NOT EXISTS `groups` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(100) NOT NULL,
+  `created` datetime DEFAULT NULL,
+  `modified` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
+-- --------------------------------------------------------
 
--- -----------------------------------------------------
--- Table `ffs`.`tickets`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `ffs`.`tickets` ;
+--
+-- Table structure for table `region`
+--
 
-CREATE  TABLE IF NOT EXISTS `ffs`.`tickets` (
-  `id` INT(20) NOT NULL AUTO_INCREMENT ,
-  `title` VARCHAR(255) NOT NULL ,
-  `keywords` VARCHAR(255) NOT NULL ,
-  `description` TEXT NOT NULL ,
-  `created` DATETIME NOT NULL ,
-  `modified` DATETIME NOT NULL ,
-  `user_id` INT(11) NOT NULL ,
-  `state_id` INT(11) NOT NULL ,
-  `region_id` INT(11) NOT NULL ,
-  PRIMARY KEY (`id`) )
-ENGINE = InnoDB;
+DROP TABLE IF EXISTS `region`;
+CREATE TABLE IF NOT EXISTS `region` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) NOT NULL,
+  `short_name` varchar(10) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
 
+--
+-- Dumping data for table `region`
+--
 
--- -----------------------------------------------------
--- Table `ffs`.`ticket_fields`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `ffs`.`ticket_fields` ;
+INSERT INTO `region` (`id`, `name`, `short_name`) VALUES
+(1, 'Asia Pacific', 'APAC');
 
-CREATE  TABLE IF NOT EXISTS `ffs`.`ticket_fields` (
-  `id` INT(11) NOT NULL AUTO_INCREMENT ,
-  `name` VARCHAR(100) NOT NULL ,
-  PRIMARY KEY (`id`) )
-ENGINE = InnoDB;
+-- --------------------------------------------------------
 
+--
+-- Table structure for table `rules`
+--
 
--- -----------------------------------------------------
--- Table `ffs`.`transactions`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `ffs`.`transactions` ;
+DROP TABLE IF EXISTS `rules`;
+CREATE TABLE IF NOT EXISTS `rules` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `cr_account_id` int(11) NOT NULL,
+  `dr_account_id` int(11) NOT NULL,
+  `current_state_id` int(11) NOT NULL,
+  `next_state_id` int(11) NOT NULL,
+  `ticket_field_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
-CREATE  TABLE IF NOT EXISTS `ffs`.`transactions` (
-  `id` INT(30) NOT NULL AUTO_INCREMENT ,
-  `amount` DECIMAL(15,2) NOT NULL DEFAULT '0.00' ,
-  `type` CHAR(1) NOT NULL ,
-  `time` DATETIME NOT NULL ,
-  `account_id` INT(11) NOT NULL ,
-  `ticket_id` INT(20) NOT NULL ,
-  `ticket_field_id` INT(11) NOT NULL ,
-  PRIMARY KEY (`id`) )
-ENGINE = InnoDB;
+-- --------------------------------------------------------
 
+--
+-- Table structure for table `states`
+--
 
--- -----------------------------------------------------
--- Table `ffs`.`tickets_ticket_fields`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `ffs`.`tickets_ticket_fields` ;
+DROP TABLE IF EXISTS `states`;
+CREATE TABLE IF NOT EXISTS `states` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) NOT NULL,
+  `description` text NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
 
-CREATE  TABLE IF NOT EXISTS `ffs`.`tickets_ticket_fields` (
-  `id` INT(20) NOT NULL ,
-  `ticket_id` INT(20) NOT NULL ,
-  `ticket_field_id` INT(11) NOT NULL ,
-  `amount` DECIMAL(15,2) NOT NULL DEFAULT '0.00' ,
-  PRIMARY KEY (`id`) )
-ENGINE = InnoDB;
+--
+-- Dumping data for table `states`
+--
 
+INSERT INTO `states` (`id`, `name`, `description`) VALUES
+(1, 'Created', 'Created the ticket');
 
--- -----------------------------------------------------
--- Table `ffs`.`rules`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `ffs`.`rules` ;
+-- --------------------------------------------------------
 
-CREATE  TABLE IF NOT EXISTS `ffs`.`rules` (
-  `id` INT(11) NOT NULL AUTO_INCREMENT ,
-  `cr_account_id` INT(11) NOT NULL ,
-  `dr_account_id` INT(11) NOT NULL ,
-  `current_state_id` INT(11) NOT NULL ,
-  `next_state_id` INT(11) NOT NULL ,
-  `ticket_field_id` INT(11) NOT NULL ,
-  PRIMARY KEY (`id`) )
-ENGINE = InnoDB;
+--
+-- Table structure for table `tickets`
+--
 
-USE `ffs` ;
+DROP TABLE IF EXISTS `tickets`;
+CREATE TABLE IF NOT EXISTS `tickets` (
+  `id` int(20) NOT NULL AUTO_INCREMENT,
+  `title` varchar(255) NOT NULL,
+  `keywords` varchar(255) NOT NULL,
+  `description` text NOT NULL,
+  `created` datetime NOT NULL,
+  `modified` datetime NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `state_id` int(11) NOT NULL,
+  `region_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=15 ;
 
+-- --------------------------------------------------------
 
-SET SQL_MODE=@OLD_SQL_MODE;
-SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
-SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
+--
+-- Table structure for table `ticket_fields`
+--
+
+DROP TABLE IF EXISTS `ticket_fields`;
+CREATE TABLE IF NOT EXISTS `ticket_fields` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(100) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
+
+--
+-- Dumping data for table `ticket_fields`
+--
+
+INSERT INTO `ticket_fields` (`id`, `name`) VALUES
+(1, 'SWAG'),
+(2, 'Media'),
+(3, 'Refreshment'),
+(4, 'Drinks');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `transactions`
+--
+
+DROP TABLE IF EXISTS `transactions`;
+CREATE TABLE IF NOT EXISTS `transactions` (
+  `id` int(30) NOT NULL AUTO_INCREMENT,
+  `amount` decimal(15,2) NOT NULL DEFAULT '0.00',
+  `type` char(1) NOT NULL,
+  `time` datetime NOT NULL,
+  `account_id` int(11) NOT NULL,
+  `ticket_id` int(20) NOT NULL,
+  `ticket_field_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `users`
+--
+
+DROP TABLE IF EXISTS `users`;
+CREATE TABLE IF NOT EXISTS `users` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `username` varchar(255) NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `group_id` int(11) NOT NULL,
+  `created` datetime DEFAULT NULL,
+  `modified` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `username` (`username`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+
+--
+-- Dumping data for table `users`
+--
+
+INSERT INTO `users` (`id`, `username`, `email`, `group_id`, `created`, `modified`) VALUES
+(1, 'udinnet', 'udithabnd@gmail.com', 0, '2013-06-27 06:57:23', '2013-06-27 06:57:23');
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
