@@ -57,10 +57,23 @@ class Ticket extends AppModel {
 			'exclusive' => '',
 			'finderQuery' => '',
 			'counterQuery' => ''
-		)
+		),
+        'FieldAmount' => array(
+            'className' => 'FieldAmount',
+            'foreignKey' => 'ticket_id',
+            'dependent' => false,
+            'conditions' => '',
+            'fields' => '',
+            'order' => '',
+            'limit' => '',
+            'offset' => '',
+            'exclusive' => '',
+            'finderQuery' => '',
+            'counterQuery' => ''
+        )
 	);
 
-
+/*
 
 	public $hasAndBelongsToMany = array(
 		'TicketField' => array(
@@ -79,5 +92,5 @@ class Ticket extends AppModel {
 			'insertQuery' => ''
 		)
 	);
-
+*/
 }
