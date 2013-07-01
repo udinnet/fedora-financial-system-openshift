@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Jun 27, 2013 at 06:32 PM
+-- Generation Time: Jul 01, 2013 at 05:37 PM
 -- Server version: 5.5.31
 -- PHP Version: 5.4.16
 
@@ -105,7 +105,7 @@ CREATE TABLE IF NOT EXISTS `field_amounts` (
   `ticket_field_id` int(11) NOT NULL,
   `amount` decimal(15,2) NOT NULL DEFAULT '0.00',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=20 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -199,7 +199,7 @@ CREATE TABLE IF NOT EXISTS `tickets` (
   `state_id` int(11) NOT NULL,
   `region_id` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=15 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
