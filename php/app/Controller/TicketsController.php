@@ -1,30 +1,16 @@
 <?php
 App::uses('AppController', 'Controller');
-/**
- * Tickets Controller
- *
- * @property Ticket $Ticket
- */
+
 class TicketsController extends AppController {
 
-/**
- * index method
- *
- * @return void
- */
+
 	public function index() {
 		$this->Ticket->recursive = 0;
 		$this->set('tickets', $this->paginate());
 	}
 
 
-/**
- * view method
- *
- * @throws NotFoundException
- * @param string $id
- * @return void
- */
+
 	public function view($id = null) {
 		if (!$this->Ticket->exists($id)) {
 			throw new NotFoundException(__('Invalid ticket'));
@@ -33,11 +19,7 @@ class TicketsController extends AppController {
 		$this->set('ticket', $this->Ticket->find('first', $options));
 	}
 
-/**
- * add method
- *
- * @return void
- */
+
 	public function add() {
 		if ($this->request->is('post')) {
             //debug($this->request->data);
@@ -71,13 +53,7 @@ class TicketsController extends AppController {
 		$this->set(compact('users', 'states', 'regions','fields','amounts'));
 	}
 
-/**
- * edit method
- *
- * @throws NotFoundException
- * @param string $id
- * @return void
- */
+
 	public function edit($id = null) {
 		if (!$this->Ticket->exists($id)) {
 			throw new NotFoundException(__('Invalid ticket'));
@@ -99,13 +75,7 @@ class TicketsController extends AppController {
 		$this->set(compact('users', 'states', 'regions'));
 	}
 
-/**
- * delete method
- *
- * @throws NotFoundException
- * @param string $id
- * @return void
- */
+
 	public function delete($id = null) {
 		$this->Ticket->id = $id;
 		if (!$this->Ticket->exists()) {

@@ -40,6 +40,12 @@ class AppController extends Controller {
         'authorize'=> array('Controller')
     ));
 
+    public $helpers = array(
+        'Html' => array('className' => 'BootstrapHtml'),
+        'Form' => array('className' => 'BootstrapForm'),
+        'Paginator' => array('className' => 'BootstrapPaginator'),
+    );
+
     public function isAuthorized($user){
         return true;
     }
