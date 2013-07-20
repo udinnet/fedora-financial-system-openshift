@@ -4,7 +4,6 @@ App::uses('AppController', 'Controller');
 
 class UsersController extends AppController {
 
-    public $theme = 'Bootstrap';
 
     public function login() {
         if($this->request->is('post')) {
