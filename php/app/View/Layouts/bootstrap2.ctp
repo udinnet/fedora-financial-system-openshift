@@ -100,7 +100,7 @@
                             <li>
                                 <p class="navbar-text" style="font-weight: bold">
                                     <?php if($logged_in): ?>
-                                        Welcome <?php echo $current_user['first_name']; ?>
+                                        Welcome <?php echo $current_user['User']['username']; ?>
                                     <?php endif; ?>
                                 </p>
                             </li>
