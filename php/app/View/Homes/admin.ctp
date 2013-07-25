@@ -5,6 +5,7 @@
 
 <div class="container">
     <ul class="thumbnails">
+
         <li class="span2">
             <?php
             $i = "<p class=\"text-center\"><i class=\"icon-user icon-4x\"></i></p>
@@ -12,6 +13,21 @@
             echo $this->Html->link(
                 $i,
                 array('controller' => 'users', 'action' => 'index'),
+                array(
+                    'class' => 'thumbnail',
+                    'escape' => false
+                )
+            );
+            ?>
+        </li>
+
+        <li class="span2">
+            <?php
+            $i = "<p class=\"text-center\"><i class=\"icon-usd icon-4x\"></i></p>
+                <p class=\"text-center\">Accounts</p>";
+            echo $this->Html->link(
+                $i,
+                array('controller' => 'accounts', 'action' => 'index'),
                 array(
                     'class' => 'thumbnail',
                     'escape' => false
