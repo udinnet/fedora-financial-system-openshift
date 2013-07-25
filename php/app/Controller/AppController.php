@@ -34,8 +34,8 @@ App::uses('FASAuthenticate', 'Controller/Component/Auth');
  */
 class AppController extends Controller {
     public $components = array('Acl','DebugKit.Toolbar','Session','Auth'=>array(
-        'loginRedirect'=>array('controller'=>'backend','action'=>'home'),
-        'logoutRedirect'=>array('controller'=>'pages','action'=>'index'),
+        'loginRedirect'=>array('controller'=>'homes','action'=>'admin'),
+        'logoutRedirect'=>array('controller'=>'homes','action'=>'main'),
         'authError'=>'You cannot access that page',
         'authorize'=> array('Controller')
     ));
