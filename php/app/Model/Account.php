@@ -31,7 +31,7 @@ class Account extends AppModel {
 			'counterQuery' => ''
 		),
         'Draccount' => array(
-            'className' => 'Transaction',
+            'className' => 'Rule',
             'foreignKey' => 'dr_account_id',
             'dependent' => false,
             'conditions' => '',
@@ -44,7 +44,7 @@ class Account extends AppModel {
             'counterQuery' => ''
         ),
         'Craccount' => array(
-            'className' => 'Transaction',
+            'className' => 'Rule',
             'foreignKey' => 'cr_account_id',
             'dependent' => false,
             'conditions' => '',
