@@ -1,20 +1,40 @@
-<div class="regions form">
-<?php echo $this->Form->create('Region'); ?>
-	<fieldset>
-		<legend><?php echo __('Add Region'); ?></legend>
-	<?php
-		echo $this->Form->input('name');
-		echo $this->Form->input('short_name');
-	?>
-	</fieldset>
-<?php echo $this->Form->end(__('Submit')); ?>
-</div>
-<div class="actions">
-	<h3><?php echo __('Actions'); ?></h3>
-	<ul>
+<?php $this->layout = 'bootstrap2'; ?>
+<?php $this->set('title', 'Add Account'); ?>
 
-		<li><?php echo $this->Html->link(__('List Regions'), array('action' => 'index')); ?></li>
-		<li><?php echo $this->Html->link(__('List Tickets'), array('controller' => 'tickets', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Ticket'), array('controller' => 'tickets', 'action' => 'add')); ?> </li>
-	</ul>
+<div class="row">
+    <div class="span3">
+        <ul class="nav nav-tabs nav-stacked">
+            <li><?php echo $this->Html->link(__('List Regions'), array('action' => 'index')); ?></li>
+        </ul>
+    </div>
+
+    <div class="span9">
+    <?php echo $this->Form->create('Region',array(
+        'novalidate' => true,
+        'inputDefaults' => array(
+            'div' => 'control-group',
+            'label' => array(
+                'class' => 'control-label'
+            ),
+            'wrapInput' => 'controls'
+        ),
+        'class' => 'well form-horizontal'
+    )); ?>
+            <legend><?php echo __('Add Region'); ?></legend>
+        <?php
+            echo $this->Form->input('name',array(
+                'class' => 'span6'
+            ));
+            echo $this->Form->input('short_name',array(
+                'class' => 'span6'
+            ));
+        ?>
+        <div class="form-actions">
+            <?php echo $this->Form->submit('Save', array(
+                'div' => false,
+                'class' => 'btn btn-primary'
+            )); ?>
+        </div>
+    <?php echo $this->Form->end(); ?>
+    </div>
 </div>
