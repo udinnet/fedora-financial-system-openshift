@@ -16,11 +16,12 @@ CREATE TABLE IF NOT EXISTS `accounts` (
   `bring_fwd` tinyint(1) DEFAULT NULL,
   `description` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
 
 INSERT INTO `accounts` (`id`, `name`, `bring_fwd`, `description`) VALUES
 (1, 'SWAG', 1, 'The SWAG Account'),
-(2, 'Cash', 1, 'Cash account');
+(2, 'Cash', 1, 'Cash account'),
+(3, 'Ticket', 0, 'ticket account');
 
 DROP TABLE IF EXISTS `acos`;
 CREATE TABLE IF NOT EXISTS `acos` (
@@ -59,6 +60,17 @@ CREATE TABLE IF NOT EXISTS `aros_acos` (
   UNIQUE KEY `ARO_ACO_KEY` (`aro_id`,`aco_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
+DROP TABLE IF EXISTS `config`;
+CREATE TABLE IF NOT EXISTS `config` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `attribute` varchar(255) NOT NULL,
+  `value` varchar(255) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+
+INSERT INTO `config` (`id`, `attribute`, `value`) VALUES
+(1, 'state_ticket_init', '4');
+
 DROP TABLE IF EXISTS `field_amounts`;
 CREATE TABLE IF NOT EXISTS `field_amounts` (
   `id` int(20) NOT NULL AUTO_INCREMENT,
@@ -66,7 +78,7 @@ CREATE TABLE IF NOT EXISTS `field_amounts` (
   `ticket_field_id` int(11) NOT NULL,
   `amount` decimal(15,2) NOT NULL DEFAULT '0.00',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 DROP TABLE IF EXISTS `groups`;
 CREATE TABLE IF NOT EXISTS `groups` (
@@ -98,10 +110,11 @@ CREATE TABLE IF NOT EXISTS `rules` (
   `next_state_id` int(11) NOT NULL,
   `ticket_field_id` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
 
 INSERT INTO `rules` (`id`, `cr_account_id`, `dr_account_id`, `current_state_id`, `next_state_id`, `ticket_field_id`) VALUES
-(1, 2, 1, 2, 3, 5);
+(1, 2, 1, 2, 3, 5),
+(2, 1, 3, 4, 2, 5);
 
 DROP TABLE IF EXISTS `states`;
 CREATE TABLE IF NOT EXISTS `states` (
@@ -109,11 +122,12 @@ CREATE TABLE IF NOT EXISTS `states` (
   `name` varchar(255) NOT NULL,
   `description` text NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
 
 INSERT INTO `states` (`id`, `name`, `description`) VALUES
 (2, 'Created', 'The ticket has been created'),
-(3, 'Approved', 'Ticket approved');
+(3, 'Approved', 'Ticket approved'),
+(4, 'Not Created', 'Ticket not exist');
 
 DROP TABLE IF EXISTS `ticket_fields`;
 CREATE TABLE IF NOT EXISTS `ticket_fields` (
@@ -138,7 +152,7 @@ CREATE TABLE IF NOT EXISTS `tickets` (
   `state_id` int(11) NOT NULL,
   `region_id` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 DROP TABLE IF EXISTS `transactions`;
 CREATE TABLE IF NOT EXISTS `transactions` (
