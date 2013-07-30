@@ -3,6 +3,7 @@ App::uses('AppController', 'Controller');
 
 class TicketsController extends AppController {
 
+    public $helpers = array('Time');
 
 	public function index() {
 		$this->Ticket->recursive = 0;
@@ -33,11 +34,61 @@ class TicketsController extends AppController {
                 }
                 $count++;
             }
-            debug($data);
+            //debug($data);
+            $this->loadModel('Config');
+            $this->loadModel('Rule');
+            $this->loadModel('Transaction');
+
+            $state_ticket_not_create = $this->Config->find('first', array(
+                'conditions' => array('Config.attribute' => 'state_ticket_not_create')
+            ));
+            $state_ticket_create = $this->Config->find('first', array(
+                'conditions' => array('Config.attribute' => 'state_ticket_create')
+            ));
+
+            $data['Ticket']['state_id'] = $state_ticket_create['Config']['value'];
+
+            $rules = $this->Rule->find('all',array(
+                'conditions' => array('Rule.current_state_id' => $state_ticket_not_create['Config']['value'],
+                    'Rule.next_state_id' => $state_ticket_create['Config']['value']
+                )
+            ));
+
+           //debug($rules);
+            $data_2=array();
 
 			if ($this->Ticket->saveAll($data)) {
-				$this->Session->setFlash(__('The ticket has been saved'));
-				$this->redirect(array('action' => 'index'));
+                $ticket_id = $this->Ticket->getInsertID();
+
+                $count = 0;
+                foreach ($rules as $rule){
+                    //for the cr account
+                    $data_2[$count]['amount'] = $this->find_amount($data,$rule);
+                    $data_2[$count]['type'] = 'c';
+                    $data_2[$count]['time'] = strftime("%Y-%m-%d %H:%M:%S", time());;
+                    $data_2[$count]['account_id'] = $this->find_account($data_2[$count]['type'],$rule);
+                    $data_2[$count]['ticket_field_id'] = $this->find_field($data,$rule);
+                    $data_2[$count]['ticket_id'] = $ticket_id;
+                    $count++;
+                    //for the dr account
+                    $data_2[$count]['amount'] = $this->find_amount($data,$rule);
+                    $data_2[$count]['type'] = 'd';
+                    $data_2[$count]['time'] = strftime("%Y-%m-%d %H:%M:%S", time());;
+                    $data_2[$count]['account_id'] = $this->find_account($data_2[$count]['type'],$rule);
+                    $data_2[$count]['ticket_field_id'] = $this->find_field($data,$rule);
+                    $data_2[$count]['ticket_id'] = $ticket_id;
+                    $count++;
+                }
+
+                if($this->Transaction->saveMany($data_2))
+                {
+                    $this->Session->setFlash(__('The ticket has been saved'));
+                    $this->redirect(array('action' => 'index'));
+                }
+                else {
+                    $this->delete($ticket_id);
+                    $this->Session->setFlash(__('The ticket could not be saved. Please, try again.'));
+                }
 			} else {
 				$this->Session->setFlash(__('The ticket could not be saved. Please, try again.'));
 			}
@@ -89,4 +140,40 @@ class TicketsController extends AppController {
 		$this->Session->setFlash(__('Ticket was not deleted'));
 		$this->redirect(array('action' => 'index'));
 	}
+
+    protected function find_amount($data, $rule) {
+        $field_amounts = $data['FieldAmount'];
+
+        foreach ($field_amounts as $field_amount){
+            if($rule['TicketField']['id'] == $field_amount['ticket_field_id']){
+                return $field_amount['amount'];
+            }
+        }
+
+        return false;
+    }
+
+    protected function find_field($data, $rule) {
+        $field_amounts = $data['FieldAmount'];
+
+        foreach ($field_amounts as $field_amount){
+            if($field_amount['ticket_field_id'] == $rule['TicketField']['id']){
+                return $rule['TicketField']['id'];
+            }
+        }
+
+        return false;
+    }
+
+    protected function find_account($type, $rule) {
+        if ($type == 'c') {
+            return $rule['CrAccount']['id'];
+        }
+        else if($type == 'd'){
+            return $rule['DrAccount']['id'];
+        }
+        else{
+            return false;
+        }
+    }
 }
