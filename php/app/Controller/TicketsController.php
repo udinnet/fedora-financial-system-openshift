@@ -23,7 +23,6 @@ class TicketsController extends AppController {
 
 	public function add() {
 		if ($this->request->is('post')) {
-            //debug($this->request->data);
 			$this->Ticket->create();
             $data = $this->request->data;
             $data_fa = $data['FieldAmount'];
@@ -34,7 +33,6 @@ class TicketsController extends AppController {
                 }
                 $count++;
             }
-            //debug($data);
             $this->loadModel('Config');
             $this->loadModel('Rule');
             $this->loadModel('Transaction');
@@ -54,7 +52,6 @@ class TicketsController extends AppController {
                 )
             ));
 
-           //debug($rules);
             $data_2=array();
 
 			if ($this->Ticket->saveAll($data)) {
@@ -100,7 +97,6 @@ class TicketsController extends AppController {
         $this->loadModel('TicketField');
         $this->loadModel('FieldAmount');
         $fields = $this->TicketField->find('all');
-        //debug($fields);
 		$this->set(compact('users', 'states', 'regions','fields','amounts'));
 	}
 
@@ -110,9 +106,57 @@ class TicketsController extends AppController {
 			throw new NotFoundException(__('Invalid ticket'));
 		}
 		if ($this->request->is('post') || $this->request->is('put')) {
-			if ($this->Ticket->save($this->request->data)) {
+            $data = $this->request->data;
+            $data_fa = $data['FieldAmount'];
+            $count = 0;
+            foreach ($data_fa as $record){
+                if($record['amount'] == ''){
+                    unset($data['FieldAmount'][$count]);
+                }
+                $count++;
+            }
+            $this->loadModel('Config');
+            $this->loadModel('Rule');
+            $this->loadModel('Transaction');
+
+            $state_current = $this->Ticket->find('first', array(
+                'conditions' => array('Ticket.id' => $id)
+            ));
+
+            $state_current = $state_current['State']['id'];
+            $state_next = $data['Ticket']['state_id'];
+
+            $rules = $this->Rule->find('all',array(
+                'conditions' => array('Rule.current_state_id' => $state_current,
+                    'Rule.next_state_id' => $state_next
+                )
+            ));
+
+            $count = 0;
+            foreach ($rules as $rule){
+                //for the cr account
+                $data['Transaction'][$count]['amount'] = $this->find_amount($data,$rule);
+                $data['Transaction'][$count]['type'] = 'c';
+                $data['Transaction'][$count]['time'] = strftime("%Y-%m-%d %H:%M:%S", time());;
+                $data['Transaction'][$count]['account_id'] = $this->find_account($data['Transaction'][$count]['type'],$rule);
+                $data['Transaction'][$count]['ticket_field_id'] = $this->find_field($data,$rule);
+                $data['Transaction'][$count]['ticket_id'] = $id;
+                $count++;
+                //for the dr account
+                $data['Transaction'][$count]['amount'] = $this->find_amount($data,$rule);
+                $data['Transaction'][$count]['type'] = 'd';
+                $data['Transaction'][$count]['time'] = strftime("%Y-%m-%d %H:%M:%S", time());;
+                $data['Transaction'][$count]['account_id'] = $this->find_account($data['Transaction'][$count]['type'],$rule);
+                $data['Transaction'][$count]['ticket_field_id'] = $this->find_field($data,$rule);
+                $data['Transaction'][$count]['ticket_id'] = $id;
+                $count++;
+            }
+
+            debug($data);
+
+            if ($this->Ticket->saveAll($data)) {
 				$this->Session->setFlash(__('The ticket has been saved'));
-				$this->redirect(array('action' => 'index'));
+				//$this->redirect(array('action' => 'index'));
 			} else {
 				$this->Session->setFlash(__('The ticket could not be saved. Please, try again.'));
 			}
@@ -123,7 +167,11 @@ class TicketsController extends AppController {
 		$users = $this->Ticket->User->find('list');
 		$states = $this->Ticket->State->find('list');
 		$regions = $this->Ticket->Region->find('list');
-		$this->set(compact('users', 'states', 'regions'));
+
+        $this->loadModel('TicketField');
+        $this->loadModel('FieldAmount');
+        $fields = $this->TicketField->find('all');
+        $this->set(compact('users', 'states', 'regions','fields','amounts'));
 	}
 
 
