@@ -93,4 +93,7 @@ class Ticket extends AppModel {
 		)
 	);
 */
+   /* public function beforeSave($options=array()){
+        parent::beforeSave();
+    }*/
 }
