@@ -10,6 +10,13 @@
 		echo $this->Form->input('user_id');
 		echo $this->Form->input('state_id');
 		echo $this->Form->input('region_id');
+
+        $count = 0;
+        foreach ($fields as $field){
+            echo $this->Form->input('FieldAmount.'.$count.'.amount',array('label'=>$field['TicketField']['name'],'type'=>'text'));
+            echo $this->Form->hidden('FieldAmount.'.$count.'.ticket_field_id',array('value'=>$field['TicketField']['id']));
+        $count++;
+        }
 	?>
 	</fieldset>
 <?php echo $this->Form->end(__('Submit')); ?>
