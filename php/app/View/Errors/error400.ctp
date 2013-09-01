@@ -1,4 +1,6 @@
 <?php
+$this->layout = 'bootstrap2';
+$this->set('title', '404 Not Found');
 /**
  *
  * PHP 5
@@ -18,13 +20,13 @@
  */
 ?>
 <h2><?php echo $name; ?></h2>
-<p class="error">
+<span class="label label-important" style="font-size: 16px">
 	<strong><?php echo __d('cake', 'Error'); ?>: </strong>
 	<?php printf(
 		__d('cake', 'The requested address %s was not found on this server.'),
 		"<strong>'{$url}'</strong>"
 	); ?>
-</p>
+</span>
 <?php
 if (Configure::read('debug') > 0):
 	echo $this->element('exception_stack_trace');
