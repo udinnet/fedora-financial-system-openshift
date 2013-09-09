@@ -7,7 +7,6 @@
 		echo $this->Form->input('keywords');
 		echo $this->Form->input('description');
 		echo $this->Form->input('user_id');
-		echo $this->Form->input('state_id');
 		echo $this->Form->input('region_id');
         /*foreach ($fields as $field){
             $i = 0;
