@@ -1,5 +1,8 @@
 <?php
 class ReportsController extends AppController {
+
+    public $components = array('RequestHandler');
+
     public function index() {
 
     }
@@ -43,7 +46,10 @@ class ReportsController extends AppController {
                 'recursive' => -1
             )
         );
-        $this->set('transactions',$transactions);
+        $this->set(array(
+            'transactions'=> $transactions,
+            '_serialize' => array('transactions')
+        ));
     }
 
 
