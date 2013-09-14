@@ -34,7 +34,7 @@
 	Router::connect('/pages/*', array('controller' => 'pages', 'action' => 'display'));
 
     Router::mapResources('reports');
-    Router::parseExtensions();
+    Router::parseExtensions('xml','csv','json','pdf');
 
 /**
  * Load all plugin routes. See the CakePlugin documentation on
